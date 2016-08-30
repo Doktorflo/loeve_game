@@ -193,11 +193,11 @@ function addCharWrapper(key, heroOrEnemy)
 
 		-- change charType
 		elseif (key == "j") then
-			heroCharType = "square"
+			enemyCharType = "square"
 		elseif (key == "k") then
-			heroCharType = "circle"
+			enemyCharType = "circle"
 		elseif (key == "l") then
-			heroCharType = "triangle"
+			enemyCharType = "triangle"
 
 		end
 
