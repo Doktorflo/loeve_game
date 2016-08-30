@@ -1,5 +1,6 @@
 bump = require 'bump'
 local layout = require 'layout'
+local initVariables = require 'initVariables'
 
 function love.load()
 	-- world
@@ -17,8 +18,8 @@ function love.load()
 	enemyCharType = "square"
 
 	-- castles
-	addChar{x=heroCastleX, y=castleY, width=castleWidth, height=castleHeight, life=100, speed=0, party="hero", charType="castle"}
-	addChar{x=enemyCastleX, y=castleY, width=castleWidth, height=castleHeight, life=100, speed=0, party="enemy", charType="castle"}
+	addChar{x=heroCastleX, y=castleY, width=castleWidth, height=castleHeight, life=lifeCastle, speed=speedCastle, party="hero", charType="castle"}
+	addChar{x=enemyCastleX, y=castleY, width=castleWidth, height=castleHeight, life=lifeCastle, speed=speedCastle, party="enemy", charType="castle"}
 
 end
 
@@ -167,11 +168,11 @@ function addCharWrapper(key, heroOrEnemy)
 		-- pos
 		print(key)
 		if (key == "q") then
-			addChar{x=heroStartX, y=firstLaneY, width=heroOrEnemyWidth, height=heroOrEnemyHeight, life=50, speed=50, party="hero", charType=heroCharType}
+			addChar{x=heroStartX, y=firstLaneY, width=heroOrEnemyWidth, height=heroOrEnemyHeight, life=lifeRock, speed=speedRock, party="hero", charType=heroCharType}
 		elseif (key == "w") then
-			addChar{x=heroStartX, y=secondLaneY, width=heroOrEnemyWidth, height=heroOrEnemyHeight, life=50, speed=50, party="hero", charType=heroCharType}
+			addChar{x=heroStartX, y=secondLaneY, width=heroOrEnemyWidth, height=heroOrEnemyHeight, life=lifePaper, speed=speedPaper, party="hero", charType=heroCharType}
 		elseif (key == "e") then
-			addChar{x=heroStartX, y=thirdLaneY, width=heroOrEnemyWidth, height=heroOrEnemyHeight, life=50, speed=50, party="hero", charType=heroCharType}
+			addChar{x=heroStartX, y=thirdLaneY, width=heroOrEnemyWidth, height=heroOrEnemyHeight, life=lifeScissor, speed=speedScissor, party="hero", charType=heroCharType}
 
 		-- change charType
 		elseif (key == "a") then
@@ -185,11 +186,11 @@ function addCharWrapper(key, heroOrEnemy)
 	elseif (heroOrEnemy == "enemy") then
 		-- pos
 		if (key == "u") then
-			addChar{x=enemyStartX, y=firstLaneY, width=heroOrEnemyWidth, height=heroOrEnemyHeight, life=50, speed=50, party="enemy", charType=enemyCharType}
+			addChar{x=enemyStartX, y=firstLaneY, width=heroOrEnemyWidth, height=heroOrEnemyHeight, life=lifeRock, speed=speedRock, party="enemy", charType=enemyCharType}
 		elseif (key == "i") then
-			addChar{x=enemyStartX, y=secondLaneY, width=heroOrEnemyWidth, height=heroOrEnemyHeight, life=50, speed=50, party="enemy", charType=enemyCharType}
+			addChar{x=enemyStartX, y=secondLaneY, width=heroOrEnemyWidth, height=heroOrEnemyHeight, life=lifePaper, speed=speedPaper, party="enemy", charType=enemyCharType}
 		elseif (key == "o") then
-			addChar{x=enemyStartX, y=thirdLaneY, width=heroOrEnemyWidth, height=heroOrEnemyHeight, life=50, speed=50, party="enemy", charType=enemyCharType}
+			addChar{x=enemyStartX, y=thirdLaneY, width=heroOrEnemyWidth, height=heroOrEnemyHeight, life=lifeScissor, speed=speedScissor, party="enemy", charType=enemyCharType}
 
 		-- change charType
 		elseif (key == "j") then
