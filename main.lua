@@ -50,7 +50,6 @@ function updateChar(char, dt)
 	local party = char.party
 	local life = char.life
 
-
 	if (char.life <= 0) then
 		world:remove(char)
 		char.life = "dead"
