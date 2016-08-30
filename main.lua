@@ -92,7 +92,7 @@ function updateChar(char, dt)
 	-- collsion detection
 	for i=1, cols_len do
 		local other = cols[i].other
-		if (other.party == "enemy") or (other.party == "hero") then
+		if (other.party ~= char.party) then
 			-- remove life
 			other.life = other.life - 10
 			char.life = char.life - 10
