@@ -2,30 +2,23 @@ bump = require 'bump'
 local layout = require 'layout'
 local initVariables = require 'initVariables'
 
-function love.load()
+function initWorld()
 	-- world
 	world = bump.newWorld()
-	-- map
-	bg = love.graphics.newImage("map1.png")
-	-- screen dimensions
-	screenW, screenH = love.graphics.getDimensions()
-	-- hero properties
-	-- characters
-	-- char --> castle, hero, enemy
-
-	-- default char types
-	heroCharType = "square"
-	enemyCharType = "square"
-
+	-- entity table
+	chars = {}
 	-- castles
-	addChar{x=heroCastleX, y=castleY, width=castleWidth, height=castleHeight, life=lifeCastle, speed=speedCastle, party="hero", charType="castle"}
-	addChar{x=enemyCastleX, y=castleY, width=castleWidth, height=castleHeight, life=lifeCastle, speed=speedCastle, party="enemy", charType="castle"}
-
+	heroCastle = {x=heroCastleX, y=castleY, width=castleWidth, height=castleHeight, life=lifeCastle, speed=speedCastle, party="hero", charType="castle"}
+	enemyCastle = {x=enemyCastleX, y=castleY, width=castleWidth, height=castleHeight, life=lifeCastle, speed=speedCastle, party="enemy", charType="castle"}
+	addChar(heroCastle)
+	addChar(enemyCastle)
 end
 
+function love.load()
+	initWorld()
+end
 
 -- table for all elements to draw them
-chars = {}
 function addChar(arg)
 	-- life reduces by collision
 	-- different speed for movement
@@ -87,7 +80,7 @@ function updateChar(char, dt)
 	--
 	-- create filter
 	local heroFilter = function(item, other)
-		if (other.party ~= char.party) then return "bounce"
+		if (other.party ~= char.party) then return "touch"
 		elseif (other.party == char.party) then return "cross"
 		end
 	end
@@ -106,6 +99,37 @@ function updateChar(char, dt)
 	end
 end
 
+function endState(winner)
+	love.graphics.printf("This text is aligned center",100, 100, 200,"center")
+	-- stop game and wait for enter key to start again
+	print("stop")
+
+end
+
+function checkWinState()
+	-- check for end of game
+	-- if game is already in end game change game world
+
+	--if (gameStatus == "gameover") then
+
+	--end
+
+	local heroCastleExist = world:hasItem(heroCastle)
+	local enemyCastleExist = world:hasItem(enemyCastle)
+
+	if (heroCastleExist ~= true or enemyCastleExist ~= true) then
+
+		gameStatus = "gameover"
+		local winner = nil
+		if (heroCastleExist == true) then
+			winner = "hero"
+		else
+			winner = "enemy"
+		endState(winner)
+	end
+	end
+
+end
 function inScreen(x, y)
 	-- checks if coordinates are in the screen
 	-- minumum
@@ -158,6 +182,12 @@ function drawChar(char)
 		print("nil")
 	end
 
+end
+
+function removeWorld()
+	-- delete all chars in the world
+	chars = nil
+	char = nil
 end
 
 function addCharWrapper(key, heroOrEnemy)
@@ -218,13 +248,31 @@ function love.keyreleased(key)
 	if (key == "escape") then
 		love.event.quit()
 	end
+	-- restart game if it has ended
+	if (gameStatus =="gameover") then
+		if (key == "space") then
+			-- reset variables and start anew
+			gameStatus = "active"
+			-- restart world
+			removeWorld()
+			initWorld()
+		end
+	end
 end
 
 function love.update(dt)
 	updateChars(dt)
+	-- changes gameStatus
+	checkWinState()
 end
 
 function love.draw()
-	drawMap()
-	drawChars()
+	if gameStatus == "gameover" then
+		drawMap()
+		endState()
+	else
+		drawMap()
+		drawChars()
+	end
+
 end
