@@ -73,6 +73,7 @@ function updateChar(char, dt)
 		return
 	end
 
+	-- calculate new position
 	if (party == "hero") then
 		-- move right
 		distance = speed * dt
@@ -82,12 +83,15 @@ function updateChar(char, dt)
 	end
 
 	local cols
-	--print(distance)
+	--
+	-- create filter
 	local heroFilter = function(item, other)
-		if (other.party == "enemy") then return "bounce"
-		elseif (other.party == "hero") then return "bounce"
+		if (other.party ~= char.party) then return "bounce"
+		elseif (other.party == char.party) then return "cross"
 		end
 	end
+
+	-- move char
 	char.x, char.y, cols, cols_len = world:move(char, char.x + distance, char.y, heroFilter)
 	-- collsion detection
 	for i=1, cols_len do
@@ -181,11 +185,11 @@ function addCharWrapper(key, heroOrEnemy)
 	elseif (heroOrEnemy == "enemy") then
 		-- pos
 		if (key == "u") then
-			addChar{x=enemyStartX, y=firstLaneY, width=heroOrEnemyWidth, height=heroOrEnemyHeight, life=50, speed=50, party="enemy", charType=heroCharType}
+			addChar{x=enemyStartX, y=firstLaneY, width=heroOrEnemyWidth, height=heroOrEnemyHeight, life=50, speed=50, party="enemy", charType=enemyCharType}
 		elseif (key == "i") then
-			addChar{x=enemyStartX, y=secondLaneY, width=heroOrEnemyWidth, height=heroOrEnemyHeight, life=50, speed=50, party="enemy", charType=heroCharType}
+			addChar{x=enemyStartX, y=secondLaneY, width=heroOrEnemyWidth, height=heroOrEnemyHeight, life=50, speed=50, party="enemy", charType=enemyCharType}
 		elseif (key == "o") then
-			addChar{x=enemyStartX, y=thirdLaneY, width=heroOrEnemyWidth, height=heroOrEnemyHeight, life=50, speed=50, party="enemy", charType=heroCharType}
+			addChar{x=enemyStartX, y=thirdLaneY, width=heroOrEnemyWidth, height=heroOrEnemyHeight, life=50, speed=50, party="enemy", charType=enemyCharType}
 
 		-- change charType
 		elseif (key == "j") then
