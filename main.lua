@@ -50,21 +50,12 @@ function updateChar(char, dt)
 	local party = char.party
 	local life = char.life
 
-	-- check if char has enough life
-	--if (char.life == "dead") then
-	--	return "dead"
-	--end
 
 	if (char.life <= 0) then
 		world:remove(char)
 		char.life = "dead"
 		return "dead"
 
-	end
-
-	if charType == "castle" then
-		--print("castles should not move")
-		return
 	end
 
 	-- calculate new position

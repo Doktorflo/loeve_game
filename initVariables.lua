@@ -17,7 +17,7 @@ speed = speedDefault
 life = lifeDefault
 
 
-speedCastle  = 100
+speedCastle  = 0
 speedRock    = 100
 speedPaper   = 100
 speedScissor = 100
