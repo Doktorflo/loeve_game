@@ -46,7 +46,7 @@ function love.load()
 	castle_23 = love.graphics.newImage("Burg23.png")
 	castle_24 = love.graphics.newImage("Burg24.png")
 	castle_25 = love.graphics.newImage("Burg25.png")
-	
+
 	castleActive = castle_00
 	initWorld()
 end
@@ -83,37 +83,37 @@ function updateChar(char, dt)
 	local charType = char.charType
 	local party = char.party
 	local life = char.life
-	
 
-	
+
+
 	-- character dead?
 	if (char.life <= 0) and (charType ~= "castle")then
 		world:remove(char)
 		char.life = "dead"
 		return "dead"
 	else
-	
+
 	end
-	
+
 	-- After Deathcounter: Game lost
-	
+
 	if(timeTillDeath == 20) and (charType == "castle") and (char.life <= 0)then
 	world:remove(char)
 		char.life = "dead"
 		return "dead"
 	else
 	end
-	
 
-	
+
+
 	-- castlelife
-	
+
 	if (charType == "castle" and party == "enemy") then
 	castlelife = life
 	elseif (charType == "castle" and party == "hero") then
 	castlelifehero = life
 	end
-	
+
 	-- calculate new position
 	if (party == "hero") then
 		-- move right
@@ -174,10 +174,10 @@ function checkWinState()
 		local winner = nil
 		if (heroCastleExist == true) then
 			winner = "hero"
-			
+
 		else
 			winner = "enemy"
-			
+
 		endState()
 	end
 	end
@@ -219,7 +219,7 @@ function drawChar(char)
 	if (char.charType == "castle") then
 		--love.graphics.setColor(255, 255, 255, 70)
 		--love.graphics.rectangle("fill", char.x, char.y , char.width, char.height)
-		
+
 		-- enemycastle
 		if (castlelife < 0) then
 			elseif (castlelife <= 100) then
@@ -263,10 +263,10 @@ function drawChar(char)
 			elseif (castlelife <= 2000) then
 			castleActive = castle_00
 		end
-		
+
 		if (castlelife < 0) then
 			if (counter > 500) then
-				castleActive = castle_20 
+				castleActive = castle_20
 			elseif (counter > 400) then
 				castleActive = castle_21
 			elseif (counter > 300) then
@@ -278,7 +278,7 @@ function drawChar(char)
 			elseif (counter > 0) then
 				castleActive = castle_25
 			end
-			
+
 			if (counter > 600) then
 					counter = 0
 					timeTillDeath = timeTillDeath + 1
@@ -289,9 +289,9 @@ function drawChar(char)
 		love.graphics.draw(castleActive, 650, 250, 0, 1, 1)
 		love.graphics.setColor(255, 255, 255, 150)
 		love.graphics.print("Counter:  " ..counter, 200, 30)
-		
+
 		-- herocastle
-		
+
 		if (castlelifehero < 0) then
 			elseif (castlelifehero <= 100) then
 			castleActive = castle_19
@@ -334,10 +334,10 @@ function drawChar(char)
 			elseif (castlelifehero <= 2000) then
 			castleActive = castle_00
 		end
-		
+
 		if (castlelifehero < 0) then
 			if (counter > 500) then
-				castleActive = castle_20 
+				castleActive = castle_20
 			elseif (counter > 400) then
 				castleActive = castle_21
 			elseif (counter > 300) then
@@ -349,7 +349,7 @@ function drawChar(char)
 			elseif (counter > 0) then
 				castleActive = castle_25
 			end
-			
+
 			if (counter > 600) then
 					counter = 0
 					timeTillDeath = timeTillDeath + 1
@@ -361,8 +361,6 @@ function drawChar(char)
 		love.graphics.setColor(255, 255, 255, 150)
 		love.graphics.print("Counter:  " ..counter, 200, 30)
 
-		
-		
 	elseif (char.charType == "rock") then
 		love.graphics.setColor(0, 255, 255, 150)
 		--love.graphics.circle("fill", char.x, char.y, char.height/2, 4)
