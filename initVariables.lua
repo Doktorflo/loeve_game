@@ -3,8 +3,8 @@
 -- game status and default values
 gameStatus = "active"
 -- default charTypes
-heroCharType = "square"
-enemyCharType = "square"
+heroCharType = "rock"
+enemyCharType = "rock"
 
 --  images and sprites
 -- map
