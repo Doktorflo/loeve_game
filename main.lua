@@ -76,12 +76,12 @@ function updateChar(char, dt)
 
 
 
-	-- castlelife
+	-- castleLife
 
 	if (charType == "castle" and party == "enemy") then
-	castlelife = life
+	castleLife = life
 	elseif (charType == "castle" and party == "hero") then
-	castlelifehero = life
+	castleLifehero = life
 	end
 
 	-- calculate new position
@@ -94,6 +94,7 @@ function updateChar(char, dt)
 	end
 
 	local cols
+
 	-- create filter
 	local heroFilter = function(item, other)
 		if (other.party ~= char.party) then return "touch"
@@ -117,9 +118,9 @@ end
 
 function endState()
 
-	if (castlelife < 0) then
+	if (castleLife < 0) then
 	love.graphics.printf("You won the game",100, 100, 200,"center")
-	elseif (castlelifehero < 0) then
+	elseif (castleLifehero < 0) then
 	love.graphics.printf("You lost the game",100, 100, 200,"center")
 	end
 	-- stop game and wait for enter key to start again
@@ -190,50 +191,50 @@ function drawChar(char)
 		--love.graphics.rectangle("fill", char.x, char.y , char.width, char.height)
 
 		-- enemycastle
-		if (castlelife < 0) then
-			elseif (castlelife <= 100) then
+		if (castleLife < 0) then
+			elseif (castleLife <= 100) then
 			castleActive = castle_19
-			elseif (castlelife <= 200) then
+			elseif (castleLife <= 200) then
 			castleActive = castle_18
-			elseif (castlelife <= 300) then
+			elseif (castleLife <= 300) then
 			castleActive = castle_17
-			elseif (castlelife <= 400) then
+			elseif (castleLife <= 400) then
 			castleActive = castle_16
-			elseif (castlelife <= 500) then
+			elseif (castleLife <= 500) then
 			castleActive = castle_15
-			elseif (castlelife <= 600) then
+			elseif (castleLife <= 600) then
 			castleActive = castle_14
-			elseif (castlelife <= 700) then
+			elseif (castleLife <= 700) then
 			castleActive = castle_13
-			elseif (castlelife <= 800) then
+			elseif (castleLife <= 800) then
 			castleActive = castle_12
-			elseif (castlelife <= 900) then
+			elseif (castleLife <= 900) then
 			castleActive = castle_11
-			elseif (castlelife <= 1000) then
+			elseif (castleLife <= 1000) then
 			castleActive = castle_10
-			elseif (castlelife <= 1100) then
+			elseif (castleLife <= 1100) then
 			castleActive = castle_09
-			elseif (castlelife <= 1200) then
+			elseif (castleLife <= 1200) then
 			castleActive = castle_08
-			elseif (castlelife <= 1300) then
+			elseif (castleLife <= 1300) then
 			castleActive = castle_07
-			elseif (castlelife <= 1400) then
+			elseif (castleLife <= 1400) then
 			castleActive = castle_06
-			elseif (castlelife <= 1500) then
+			elseif (castleLife <= 1500) then
 			castleActive = castle_05
-			elseif (castlelife <= 1600) then
+			elseif (castleLife <= 1600) then
 			castleActive = castle_04
-			elseif (castlelife <= 1700) then
+			elseif (castleLife <= 1700) then
 			castleActive = castle_03
-			elseif (castlelife <= 1800) then
+			elseif (castleLife <= 1800) then
 			castleActive = castle_02
-			elseif (castlelife <= 1900) then
+			elseif (castleLife <= 1900) then
 			castleActive = castle_01
-			elseif (castlelife <= 2000) then
+			elseif (castleLife <= 2000) then
 			castleActive = castle_00
 		end
 
-		if (castlelife < 0) then
+		if (castleLife < 0) then
 			if (counter > 500) then
 				castleActive = castle_20
 			elseif (counter > 400) then
@@ -261,50 +262,50 @@ function drawChar(char)
 
 		-- herocastle
 
-		if (castlelifehero < 0) then
-			elseif (castlelifehero <= 100) then
+		if (castleLifehero < 0) then
+			elseif (castleLifehero <= 100) then
 			castleActive = castle_19
-			elseif (castlelifehero <= 200) then
+			elseif (castleLifehero <= 200) then
 			castleActive = castle_18
-			elseif (castlelifehero <= 300) then
+			elseif (castleLifehero <= 300) then
 			castleActive = castle_17
-			elseif (castlelifehero <= 400) then
+			elseif (castleLifehero <= 400) then
 			castleActive = castle_16
-			elseif (castlelifehero <= 500) then
+			elseif (castleLifehero <= 500) then
 			castleActive = castle_15
-			elseif (castlelifehero <= 600) then
+			elseif (castleLifehero <= 600) then
 			castleActive = castle_14
-			elseif (castlelifehero <= 700) then
+			elseif (castleLifehero <= 700) then
 			castleActive = castle_13
-			elseif (castlelifehero <= 800) then
+			elseif (castleLifehero <= 800) then
 			castleActive = castle_12
-			elseif (castlelifehero <= 900) then
+			elseif (castleLifehero <= 900) then
 			castleActive = castle_11
-			elseif (castlelifehero <= 1000) then
+			elseif (castleLifehero <= 1000) then
 			castleActive = castle_10
-			elseif (castlelifehero <= 1100) then
+			elseif (castleLifehero <= 1100) then
 			castleActive = castle_09
-			elseif (castlelifehero <= 1200) then
+			elseif (castleLifehero <= 1200) then
 			castleActive = castle_08
-			elseif (castlelifehero <= 1300) then
+			elseif (castleLifehero <= 1300) then
 			castleActive = castle_07
-			elseif (castlelifehero <= 1400) then
+			elseif (castleLifehero <= 1400) then
 			castleActive = castle_06
-			elseif (castlelifehero <= 1500) then
+			elseif (castleLifehero <= 1500) then
 			castleActive = castle_05
-			elseif (castlelifehero <= 1600) then
+			elseif (castleLifehero <= 1600) then
 			castleActive = castle_04
-			elseif (castlelifehero <= 1700) then
+			elseif (castleLifehero <= 1700) then
 			castleActive = castle_03
-			elseif (castlelifehero <= 1800) then
+			elseif (castleLifehero <= 1800) then
 			castleActive = castle_02
-			elseif (castlelifehero <= 1900) then
+			elseif (castleLifehero <= 1900) then
 			castleActive = castle_01
-			elseif (castlelifehero <= 2000) then
+			elseif (castleLifehero <= 2000) then
 			castleActive = castle_00
 		end
 
-		if (castlelifehero < 0) then
+		if (castleLifehero < 0) then
 			if (counter > 500) then
 				castleActive = castle_20
 			elseif (counter > 400) then
@@ -352,8 +353,8 @@ end
 function drawStatus()
 
 	love.graphics.setColor(0, 0, 0, 70)
-	love.graphics.print("Gegner Leben:  " ..castlelife, 600, 30)
-	love.graphics.print("Held Leben:  " ..castlelifehero, 50, 30)
+	love.graphics.print("Gegner Leben:  " ..castleLife, 600, 30)
+	love.graphics.print("Held Leben:  " ..castleLifehero, 50, 30)
 end
 
 function removeWorld()
