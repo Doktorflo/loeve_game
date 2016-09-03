@@ -10,6 +10,12 @@ enemyCharType = "rock"
 -- map
 bg = love.graphics.newImage("map1.png")
 
+--sprites
+
+counter = 0
+timeTillDeath = 0
+animationSpeed = 15
+
 -- variables for characters
 speedDefault = 10
 lifeDefault = 100
@@ -22,7 +28,7 @@ speedRock    = 100
 speedPaper   = 100
 speedScissor = 100
 
-lifeCastle   = 1000
-lifeRock     = 100
-lifePaper    = 100
-lifeScissor  = 100
+lifeCastle   = 2000
+lifeRock     = 10
+lifePaper    = 20
+lifeScissor  = 400
