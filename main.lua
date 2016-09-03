@@ -363,7 +363,7 @@ function drawChar(char)
 
 		
 		
-	elseif (char.charType == "square") then
+	elseif (char.charType == "rock") then
 		love.graphics.setColor(0, 255, 255, 150)
 		--love.graphics.circle("fill", char.x, char.y, char.height/2, 4)
 		love.graphics.rectangle("fill", char.x, char.y, char.width, char.height)
