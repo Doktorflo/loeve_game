@@ -117,14 +117,13 @@ function updateChar(char, dt)
 end
 
 function endState()
-
-	if (castleLife < 0) then
-	love.graphics.printf("You won the game",100, 100, 200,"center")
-	elseif (castleLifehero < 0) then
-	love.graphics.printf("You lost the game",100, 100, 200,"center")
+	if (winner == "hero") then
+	love.graphics.printf("The left player won the game",100, 100, 200,"center")
+	elseif (winner == "enemy") then
+	love.graphics.printf("The rigt player won the game",100, 100, 200,"center")
 	end
 	-- stop game and wait for enter key to start again
-	print("stop")
+	print("game has ended")
 end
 
 function checkWinState()
