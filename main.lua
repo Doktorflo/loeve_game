@@ -94,7 +94,6 @@ function updateChar(char, dt)
 	end
 
 	local cols
-	--
 	-- create filter
 	local heroFilter = function(item, other)
 		if (other.party ~= char.party) then return "touch"
