@@ -1,6 +1,7 @@
 bump = require 'bump'
 local layout = require 'layout'
 local initVariables = require 'initVariables'
+local controller = require 'controller'
 
 function initWorld()
 	-- world
@@ -61,6 +62,7 @@ function addChar(arg)
 	local char = arg
 	-- add character to table for all chars
 	chars[#chars + 1] = char
+	print(char.charType)
 	-- add character to world for bump
 	world:add(char, char.x, char.y, char.width, char.height)
 end
@@ -151,10 +153,8 @@ function endState()
 	elseif (castlelifehero < 0) then
 	love.graphics.printf("You lost the game",100, 100, 200,"center")
 	end
-	
 	-- stop game and wait for enter key to start again
 	print("stop")
-
 end
 
 function checkWinState()
@@ -363,26 +363,23 @@ function drawChar(char)
 
 		
 		
-	elseif (char.charType == "square") then
+	elseif (char.charType == "rock") then
 		love.graphics.setColor(0, 255, 255, 150)
 		--love.graphics.circle("fill", char.x, char.y, char.height/2, 4)
 		love.graphics.rectangle("fill", char.x, char.y, char.width, char.height)
-	elseif (char.charType == "circle") then
+	elseif (char.charType == "paper") then
 		love.graphics.setColor(255, 0, 255, 150)
 		love.graphics.rectangle("fill", char.x, char.y, char.width, char.height)
 		--love.graphics.circle("fill", char.x, char.y, char.height/2, 500)
-	elseif (char.charType == "triangle") then
+	elseif (char.charType == "scissors") then
 		love.graphics.setColor(255, 255, 0, 150)
 		love.graphics.rectangle("fill", char.x, char.y, char.width, char.height)
 		--love.graphics.circle("fill", char.x, char.y, char.height/2, 3)
 		--love.graphics.polygon('fill', 100, 100, 200, 100, 150, 200)
 	else
+		print(char.charType)
 		print("nil")
 	end
-	
-	
-	
-
 end
 
 function drawStatus()
@@ -390,7 +387,6 @@ function drawStatus()
 	love.graphics.setColor(0, 0, 0, 70)
 	love.graphics.print("Gegner Leben:  " ..castlelife, 600, 30)
 	love.graphics.print("Held Leben:  " ..castlelifehero, 50, 30)
-	
 end
 
 function removeWorld()
@@ -399,74 +395,8 @@ function removeWorld()
 	char = nil
 end
 
-function addCharWrapper(key, heroOrEnemy)
-	-- three keys to change lane
-	-- and three keys to change color/form/img
-	if (heroOrEnemy == "hero") then
-
-		-- pos
-		print(key)
-		if (key == "q") then
-			addChar{x=heroStartX, y=firstLaneY, width=heroOrEnemyWidth, height=heroOrEnemyHeight, life=lifeRock, speed=speedRock, party="hero", charType=heroCharType}
-		elseif (key == "w") then
-			addChar{x=heroStartX, y=secondLaneY, width=heroOrEnemyWidth, height=heroOrEnemyHeight, life=lifePaper, speed=speedPaper, party="hero", charType=heroCharType}
-		elseif (key == "e") then
-			addChar{x=heroStartX, y=thirdLaneY, width=heroOrEnemyWidth, height=heroOrEnemyHeight, life=lifeScissor, speed=speedScissor, party="hero", charType=heroCharType}
-
-		-- change charType
-		elseif (key == "a") then
-			heroCharType = "square"
-		elseif (key == "s") then
-			heroCharType = "circle"
-		elseif (key == "d") then
-			heroCharType = "triangle"
-
-		end
-	elseif (heroOrEnemy == "enemy") then
-		-- pos
-		if (key == "u") then
-			addChar{x=enemyStartX, y=firstLaneY, width=heroOrEnemyWidth, height=heroOrEnemyHeight, life=lifeRock, speed=speedRock, party="enemy", charType=enemyCharType}
-		elseif (key == "i") then
-			addChar{x=enemyStartX, y=secondLaneY, width=heroOrEnemyWidth, height=heroOrEnemyHeight, life=lifePaper, speed=speedPaper, party="enemy", charType=enemyCharType}
-		elseif (key == "o") then
-			addChar{x=enemyStartX, y=thirdLaneY, width=heroOrEnemyWidth, height=heroOrEnemyHeight, life=lifeScissor, speed=speedScissor, party="enemy", charType=enemyCharType}
-
-		-- change charType
-		elseif (key == "j") then
-			enemyCharType = "square"
-		elseif (key == "k") then
-			enemyCharType = "circle"
-		elseif (key == "l") then
-			enemyCharType = "triangle"
-
-		end
-
-	end
-
-end
 function love.keyreleased(key)
-	-- is key from the hero or the enemy?
-	local heroKeys = {q=true,w=true,e=true,a=true,s=true,d=true}
-	if heroKeys[key] ~= nil then
-		addCharWrapper(key, "hero")
-	else
-		addCharWrapper(key, "enemy")
-	end
-
-	-- exit game
-	if (key == "escape") then
-		love.event.quit()
-	end
-	-- restart game if it has ended
-	if (gameStatus =="gameover") then
-		if (key == "space") then
-			-- reset variables and start anew
-			gameStatus = "active"
-			-- restart world
-			removeWorld()
-			initWorld()
-		end
-	end
+	controller.control(key)
 end
 
 function love.update(dt)
