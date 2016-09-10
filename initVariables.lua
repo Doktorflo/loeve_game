@@ -19,11 +19,18 @@ castleDeathImg = {}
 
 for i=0, #castleImg do
 	if i < 20 then
+		-- all normal castle images
 		castleLifeImg[#castleLifeImg +1] = castleImg[i]
 	else
+		-- death images
 		castleDeathImg[#castleDeathImg +1] = castleImg[i]
 	end
 
+end
+
+function initAnimationTimer(countOfImg, life)
+	section = life / countOfImg
+	return section
 end
 
 -- variables for castles
@@ -44,11 +51,11 @@ life = lifeDefault
 
 
 speedCastle  = 0
-speedRock    = 100
-speedPaper   = 100
-speedScissor = 100
+speedRock    = 1000
+speedPaper   = 1000
+speedScissor = 1000
 
-lifeCastle   = 2000
-lifeRock     = 10
-lifePaper    = 20
+lifeCastle   = 20
+lifeRock     = 100
+lifePaper    = 200
 lifeScissor  = 400
