@@ -37,7 +37,7 @@ function addAnimation(char, charType)
 	-- set the variables with the appropiate tables for animation
 	for  index,value in  pairs(animationHaltImages) do
 		--print(i, animationHaltImages[i], animationHaltImages.i)
-		print(index,value[1], charType)
+		--print(index,value[1], charType)
 		if value[1] == charType then
 			print("halt")
 			--print(i, animationHaltImages.i)
@@ -48,7 +48,7 @@ function addAnimation(char, charType)
 
 	for index, value in  pairs(animationDeathImages) do
 		if value[1] == charType then
-			print("deathi")
+			--print("deathi")
 			animationDeathImage = value[2]
 		end
 	end
@@ -85,7 +85,7 @@ function animationTimer(char)
 	--
 	-- is position and intTimer the same --> reset position
 	if genericTimerMax == genericTimer[2] then
-		print(char.charType, char.status, "bauuuu")
+		--print(char.charType, char.status, "bauuuu")
 		-- image change
 		genericTimer[2] = 1
 
@@ -109,7 +109,7 @@ function animationTimer(char)
 		end
 
 		if char.status == "dead" then
-			print(char.status, char.life, char.charType, char.death.position , char.image)
+			--print(char.status, char.life, char.charType, char.death.position , char.image)
 
 			-- position in list
 			-- increment death position in char.death
@@ -119,10 +119,10 @@ function animationTimer(char)
 				char.death.position = 1 -- set death position to 1
 			end
 			-- set correct image
-			print("baum")
-			print("bilder:", char.death.imageLoop[char.death.position], char.party)
+			--print("baum")
+			--print("bilder:", char.death.imageLoop[char.death.position], char.party)
 			char.image =  char.death.imageLoop[char.death.position]
-			print("endimage")
+			--print("endimage")
 		end
 end
 -- add animation (images) table to char
@@ -164,6 +164,9 @@ function updateChars(dt)
 			--print("dead")
 			table.remove(chars, index)
 		end
+
+		-- changes gameStatus
+		checkWinState(char)
 	end
 end
 
@@ -241,34 +244,36 @@ function updateChar(char, dt)
 	end
 end
 
-function endState(winner)
+function endState()
+	-- winner must be set from checkWinState
+	love.graphics.setNewFont(endStateFont)
 	if (winner == "hero") then
-	love.graphics.printf("The left player won the game",100, 100, 200,"center")
+		print("herogame has ended")
+		love.graphics.printf("The left player won the game",screenW, screenH, 200,"center")
 	elseif (winner == "enemy") then
-	love.graphics.printf("The right player won the game",100, 100, 200,"center")
+		print(middleX)
+		print(middleY)
+		print("enemygame has ended")
+		love.graphics.printf("The right player won the game",0, middleY ,screenW, "center")
 	end
+	love.graphics.setNewFont(defaultFontSize)
 	-- stop game and wait for enter key to start again
-	print("game has ended")
 end
 
-function checkWinState()
+function checkWinState(char)
 	-- check for end of game
-	local heroCastleExist = world:hasItem(heroCastle)
-	local enemyCastleExist = world:hasItem(enemyCastle)
+	if char.charType == "castle" then
+		if char.life <= 0 then
+			if char.party == "hero" then
+				gameStatus = "gameover"
+				winner = "hero"
+			elseif char.party == "enemy" then
+				gameStatus = "gameover"
+				winner = "enemy"
+			end
 
-	if (heroCastleExist ~= true or enemyCastleExist ~= true) then
-
-		gameStatus = "gameover"
-		local winner = nil
-		if (heroCastleExist == true) then
-			winner = "hero"
-
-		else
-			winner = "enemy"
-		endState(winner)
+		end
 	end
-	end
-
 end
 function inScreen(x, y)
 	-- checks if coordinates are in the screen
@@ -308,7 +313,7 @@ function drawChar(char)
 			love.graphics.setColor(190, 250, 190, 255)
 			love.graphics.draw(char.image, 50, 250, 0, 1, 1)
 		elseif char.party == "enemy" then
-			print(char.image)
+			--print(char.image)
 			love.graphics.setColor(255, 100, 100, 150)
 			love.graphics.draw(char.image, 650, 250, 0, 1, 1)
 
@@ -500,13 +505,12 @@ end
 
 function love.update(dt)
 	updateChars(dt)
-	-- changes gameStatus
-	checkWinState()
 end
 
 function love.draw()
 	if gameStatus == "gameover" then
 		drawMap()
+		drawChars()
 		endState()
 	else
 		drawMap()

@@ -59,3 +59,7 @@ lifeCastle   = 20
 lifeRock     = 100
 lifePaper    = 200
 lifeScissor  = 400
+
+-- font
+defaultFontSize = 13
+endStateFont = 25
