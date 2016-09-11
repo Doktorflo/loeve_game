@@ -36,8 +36,6 @@ end
 -- variables for castles
 heroCastleActive = castleLifeImg[1]
 enemyCastleActive = castleLifeImg[1]
--- unneeded
-castleActive = castle_00
 
 counter = 0
 timeTillDeath = 0

@@ -44,7 +44,6 @@ function addAnimation(char, charType)
 			animationHaltImage = value[2]
 		end
 	end
-	print("baum", animationHaltImage)
 
 	for index, value in  pairs(animationDeathImages) do
 		if value[1] == charType then
@@ -62,7 +61,6 @@ function addAnimation(char, charType)
 	-- add animation properties
 	char.status = "castle"
 	-- based on life, threshold is needed to change image, gap is neeed to calculate new threshold
-	-- ??????? maybe absolute timer without life calculation and so on?
 	char.timerLife =  {["gap"] = imageGapHalt, ["threshold"] = charLife - imageGapHalt, }
 	-- generic timer to count for 4 images (death)
 	char.genericTimer4 = {12, position} 
@@ -130,12 +128,7 @@ function animationTimer(char)
 			-- set correct image
 			char.image =  char.death.imageLoop[char.death.position]
 		end
-end
--- add animation (images) table to char
-	-- animation = {"halt" : {active: castleActive, img: castleLifeimg, treshold: -- leben für nächstes Bild, distance -- abstand der zum timer hinzugefüt wird}}
-	--  "halt, start, death"
-	--section = life / countOfImg
-	--return section
+	end
 end
 
 
@@ -200,27 +193,6 @@ function updateChar(char, dt)
 	local party = char.party
 	local life = char.life
 	local status = char.status
-
-	--print(speed, charType, party, life, status)
-	-- After Deathcounter: Game lost
-
-	--if(timeTillDeath == 20) and (charType == "castle") and (char.life <= 0)then
-	--world:remove(char)
-	--	char.life = "dead"
-	--	return "dead"
-	--else
-	--end
-
-
-
-	---- castleLife
-
-	--if (charType == "castle" and party == "enemy") then
-	--castleLife = life
-	--elseif (charType == "castle" and party == "hero") then
-	--castleLifehero = life
-	--end
-
 	-- calculate new position
 	if (party == "hero") then
 		-- move right
@@ -229,16 +201,13 @@ function updateChar(char, dt)
 		--- move left
 		distance = -speed * dt
 	end
-
 	local cols
-
 	-- create filter
 	local heroFilter = function(item, other)
 		if (other.party ~= char.party) then return "touch"
 		elseif (other.party == char.party) then return "cross"
 		end
 	end
-
 	-- move char
 	char.x, char.y, cols, cols_len = world:move(char, char.x + distance, char.y, heroFilter)
 	-- collsion detection
@@ -248,7 +217,6 @@ function updateChar(char, dt)
 			-- remove life
 			other.life = other.life - 10
 			char.life = char.life - 10
-
 		end
 	end
 end
@@ -302,7 +270,6 @@ function inScreen(x, y)
 
 end
 
--- helper function
 function drawMap()
 	-- map
 	love.graphics.setColor(255, 255, 255, 255)
@@ -328,149 +295,6 @@ function drawChar(char)
 
 		end
 		love.graphics.setColor(255, 255, 255, 150)
-		--love.graphics.setColor(255, 255, 255, 70)
-		--love.graphics.rectangle("fill", char.x, char.y , char.width, char.height)
-
-		--
-		-- enemycastle
-		--if (castleLife < 0) then
-		--	elseif (castleLife <= 100) then
-		--	castleActive = castle_19
-		--	elseif (castleLife <= 200) then
-		--	castleActive = castle_18
-		--	elseif (castleLife <= 300) then
-		--	castleActive = castle_17
-		--	elseif (castleLife <= 400) then
-		--	castleActive = castle_16
-		--	elseif (castleLife <= 500) then
-		--	castleActive = castle_15
-		--	elseif (castleLife <= 600) then
-		--	castleActive = castle_14
-		--	elseif (castleLife <= 700) then
-		--	castleActive = castle_13
-		--	elseif (castleLife <= 800) then
-		--	castleActive = castle_12
-		--	elseif (castleLife <= 900) then
-		--	castleActive = castle_11
-		--	elseif (castleLife <= 1000) then
-		--	castleActive = castle_10
-		--	elseif (castleLife <= 1100) then
-		--	castleActive = castle_09
-		--	elseif (castleLife <= 1200) then
-		--	castleActive = castle_08
-		--	elseif (castleLife <= 1300) then
-		--	castleActive = castle_07
-		--	elseif (castleLife <= 1400) then
-		--	castleActive = castle_06
-		--	elseif (castleLife <= 1500) then
-		--	castleActive = castle_05
-		--	elseif (castleLife <= 1600) then
-		--	castleActive = castle_04
-		--	elseif (castleLife <= 1700) then
-		--	castleActive = castle_03
-		--	elseif (castleLife <= 1800) then
-		--	castleActive = castle_02
-		--	elseif (castleLife <= 1900) then
-		--	castleActive = castle_01
-		--	elseif (castleLife <= 2000) then
-		--	castleActive = castle_00
-		--end
-
-		--if (castleLife < 0) then
-		--	if (counter > 500) then
-		--		castleActive = castle_20
-		--	elseif (counter > 400) then
-		--		castleActive = castle_21
-		--	elseif (counter > 300) then
-		--		castleActive = castle_22
-		--	elseif (counter > 200) then
-		--		castleActive = castle_23
-		--	elseif (counter > 100) then
-		--		castleActive = castle_24
-		--	elseif (counter > 0) then
-		--		castleActive = castle_25
-		--	end
-
-		--	if (counter > 600) then
-		--			counter = 0
-		--			timeTillDeath = timeTillDeath + 1
-		--	end
-		--counter = counter + animationSpeed
-		--end
-		--love.graphics.setColor(255, 100, 100, 150)
-		--love.graphics.draw(castleActive, 650, 250, 0, 1, 1)
-		--love.graphics.setColor(255, 255, 255, 150)
-		--love.graphics.print("Counter:  " ..counter, 200, 30)
-
-		---- herocastle
-
-		--if (castleLifehero < 0) then
-		--	elseif (castleLifehero <= 100) then
-		--	castleActive = castle_19
-		--	elseif (castleLifehero <= 200) then
-		--	castleActive = castle_18
-		--	elseif (castleLifehero <= 300) then
-		--	castleActive = castle_17
-		--	elseif (castleLifehero <= 400) then
-		--	castleActive = castle_16
-		--	elseif (castleLifehero <= 500) then
-		--	castleActive = castle_15
-		--	elseif (castleLifehero <= 600) then
-		--	castleActive = castle_14
-		--	elseif (castleLifehero <= 700) then
-		--	castleActive = castle_13
-		--	elseif (castleLifehero <= 800) then
-		--	castleActive = castle_12
-		--	elseif (castleLifehero <= 900) then
-		--	castleActive = castle_11
-		--	elseif (castleLifehero <= 1000) then
-		--	castleActive = castle_10
-		--	elseif (castleLifehero <= 1100) then
-		--	castleActive = castle_09
-		--	elseif (castleLifehero <= 1200) then
-		--	castleActive = castle_08
-		--	elseif (castleLifehero <= 1300) then
-		--	castleActive = castle_07
-		--	elseif (castleLifehero <= 1400) then
-		--	castleActive = castle_06
-		--	elseif (castleLifehero <= 1500) then
-		--	castleActive = castle_05
-		--	elseif (castleLifehero <= 1600) then
-		--	castleActive = castle_04
-		--	elseif (castleLifehero <= 1700) then
-		--	castleActive = castle_03
-		--	elseif (castleLifehero <= 1800) then
-		--	castleActive = castle_02
-		--	elseif (castleLifehero <= 1900) then
-		--	castleActive = castle_01
-		--	elseif (castleLifehero <= 2000) then
-		--	castleActive = castle_00
-		--end
-
-		--if (castleLifehero < 0) then
-		--	if (counter > 500) then
-		--		castleActive = castle_20
-		--	elseif (counter > 400) then
-		--		castleActive = castle_21
-		--	elseif (counter > 300) then
-		--		castleActive = castle_22
-		--	elseif (counter > 200) then
-		--		castleActive = castle_23
-		--	elseif (counter > 100) then
-		--		castleActive = castle_24
-		--	elseif (counter > 0) then
-		--		castleActive = castle_25
-		--	end
-
-		--	if (counter > 600) then
-		--			counter = 0
-		--			timeTillDeath = timeTillDeath + 1
-		--	end
-		--counter = counter + animationSpeed
-		--end
-		--love.graphics.setColor(255, 255, 255, 150)
-		--love.graphics.print("Counter:  " ..counter, 200, 30)
-
 	elseif (char.charType == "rock") then
 		love.graphics.setColor(0, 255, 255, 150)
 		--love.graphics.circle("fill", char.x, char.y, char.height/2, 4)
@@ -525,5 +349,4 @@ function love.draw()
 		drawMap()
 		drawChars()
 	end
-
 end
