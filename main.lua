@@ -184,11 +184,14 @@ function deathHandler(char)
 	end
 
 	if char.status == "dead" then
-		--print("dead" .. char.charType)
-		-- implement death timer
-		-- TOD (death timer == 0 and status == "dead")O
-		-- world:remove(char)
-		return false
+		-- remove char from world
+		-- castles shouln´t be removed from world
+		if char.charType ~= "castle" then
+			print(char.charType)
+			world:remove(char)
+			return true
+		--return false
+		end
 	end
 end
 function updateChar(char, dt)
