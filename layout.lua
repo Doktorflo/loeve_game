@@ -1,5 +1,4 @@
 --local layout = {}
-
 screenW,  screenH = love.graphics.getDimensions()
 local screenW = screenW
 local screenH = screenH
@@ -27,9 +26,4 @@ heroOrEnemyWidth = column/2
 
 middleX = screenW / 2
 middleY = screenH / 2
-
---function layout.middle()
---  return {middleX, middleY}
---end
-
 --return layout
