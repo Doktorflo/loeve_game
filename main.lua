@@ -78,10 +78,8 @@ function animationTimer(char)
 
 	-- position increment
 	genericTimer[2] = genericTimer[2] + 1
-	--
 	-- is position and intTimer the same --> reset position
 	if genericTimerMax == genericTimer[2] then
-		--print(char.charType, char.status, "bauuuu")
 		-- image change
 		genericTimer[2] = 1
 
@@ -98,26 +96,19 @@ function animationTimer(char)
 				-- set correct image
 				char.image =  char.halt.imageLoop[char.halt.position]
 			end
-
-
-		end
-		if char.status == "halt" then -- stop
+		elseif char.status == "halt" then
 			-- look after timerLife or timerGeneric --> is new image needed?
 			-- set new timer / timer
 			-- Get incremented image from image table
 			-- save image in char.image
-		end
 
-		if char.status == "run" then
-		end
+		elseif char.status == "run" then
 
-		if char.status == "fight" then
-		end
+		elseif char.status == "fight" then
 
-		if char.status == "hurt" then
-		end
+		elseif char.status == "hurt" then
 
-		if char.status == "dead" then
+		elseif char.status == "dead" then
 			-- position in list
 			-- increment death position in char.death
 			-- increment image 
