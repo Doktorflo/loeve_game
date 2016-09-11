@@ -57,13 +57,13 @@ function addAnimation(char, charType)
 
 	position = 1
 	latestImage = animationHaltImage[position]
-	
+
 	-- add animation properties
 	char.status = "castle"
 	-- based on life, threshold is needed to change image, gap is neeed to calculate new threshold
 	char.timerLife =  {["gap"] = imageGapHalt, ["threshold"] = charLife - imageGapHalt, }
 	-- generic timer to count for 4 images (death)
-	char.genericTimer4 = {12, position} 
+	char.genericTimer4 = {12, position}
 	char.image = latestImage
 	-- posiiton in list
 	char.halt = {["imageLoop"] = animationHaltImage, ["position"] = position}
@@ -87,7 +87,7 @@ function animationTimer(char)
 			if char.life <= char.timerLife.threshold then
 				-- set new threshold
 				char.timerLife.threshold = char.life - char.timerLife.gap
-				
+
 				-- set new image
 				char.halt.position = char.halt.position + 1
 				if char.halt.position  == #char.halt.imageLoop then --  last image in list
@@ -111,7 +111,7 @@ function animationTimer(char)
 		elseif char.status == "dead" then
 			-- position in list
 			-- increment death position in char.death
-			-- increment image 
+			-- increment image
 			char.death.position = char.death.position + 1
 			if char.death.position  == #char.death.imageLoop then --  last image in list
 				char.death.position = 1 -- set death position to 1
