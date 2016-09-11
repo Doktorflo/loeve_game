@@ -55,7 +55,7 @@ speedRock    = 1000
 speedPaper   = 1000
 speedScissor = 1000
 
-lifeCastle   = 20
+lifeCastle   = 2000
 lifeRock     = 100
 lifePaper    = 200
 lifeScissor  = 400

@@ -52,9 +52,7 @@ function addAnimation(char, charType)
 			animationDeathImage = value[2]
 		end
 	end
-	--print("baum2" .. animationDeathImage)
 
-	-- TODO timer needed to loop images in needed framerate
 	imageGapHalt= charLife/#animationHaltImage
 	imageGapDeath = charLife/#animationDeathImage
 
@@ -63,9 +61,9 @@ function addAnimation(char, charType)
 	
 	-- add animation properties
 	char.status = "castle"
-	-- based on life
+	-- based on life, threshold is needed to change image, gap is neeed to calculate new threshold
 	-- ??????? maybe absolute timer without life calculation and so on?
-	char.timerLife =  {["gap"] = imageGapHalt, ["position"] = charLife - imageGapHalt, }
+	char.timerLife =  {["gap"] = imageGapHalt, ["threshold"] = charLife - imageGapHalt, }
 	-- generic timer to count for 4 images (death)
 	char.genericTimer4 = {12, position} 
 	char.image = latestImage
@@ -90,6 +88,19 @@ function animationTimer(char)
 		genericTimer[2] = 1
 
 		if char.status == "castle" then
+			if char.life <= char.timerLife.threshold then
+				-- set new threshold
+				char.timerLife.threshold = char.life - char.timerLife.gap
+				
+				-- set new image
+				char.halt.position = char.halt.position + 1
+				if char.halt.position  == #char.halt.imageLoop then --  last image in list
+					char.halt.position = 1 -- set halt position to 1
+				end
+				-- set correct image
+				char.image =  char.halt.imageLoop[char.halt.position]
+			end
+
 
 		end
 		if char.status == "halt" then -- stop
@@ -109,8 +120,6 @@ function animationTimer(char)
 		end
 
 		if char.status == "dead" then
-			--print(char.status, char.life, char.charType, char.death.position , char.image)
-
 			-- position in list
 			-- increment death position in char.death
 			-- increment image 
@@ -119,10 +128,7 @@ function animationTimer(char)
 				char.death.position = 1 -- set death position to 1
 			end
 			-- set correct image
-			--print("baum")
-			--print("bilder:", char.death.imageLoop[char.death.position], char.party)
 			char.image =  char.death.imageLoop[char.death.position]
-			--print("endimage")
 		end
 end
 -- add animation (images) table to char
