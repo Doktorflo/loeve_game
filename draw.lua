@@ -46,13 +46,14 @@ function drawChar(char)
 end
 
 function drawStatus(char)
+	love.graphics.rectangle("line", 1, 1, screenW-1, 60)
 	-- draws life of the castles
 	love.graphics.setColor(0, 0, 0, 70)
 	if char.charType == "castle" then
 		if char.party == "hero" then
-			love.graphics.print("hero life:  " .. char.life, 50, 30)
+			love.graphics.print("hero life:  " .. char.life, 50, 20)
 		elseif char.party == "enemy" then
-			love.graphics.print("enemy life  " .. char.life, 600, 30)
+			love.graphics.print("enemy life  " .. char.life, 600, 20)
 		end
 	end
 end
