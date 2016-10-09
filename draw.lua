@@ -27,13 +27,16 @@ function drawChar(char)
 		love.graphics.setColor(0, 255, 255, 150)
 		--love.graphics.circle("fill", char.x, char.y, char.height/2, 4)
 		love.graphics.rectangle("fill", char.x, char.y, char.width, char.height)
+		print(char.charType)
 	elseif (char.charType == "paper") then
 		love.graphics.setColor(255, 0, 255, 150)
 		love.graphics.rectangle("fill", char.x, char.y, char.width, char.height)
+		print(char.charType)
 		--love.graphics.circle("fill", char.x, char.y, char.height/2, 500)
 	elseif (char.charType == "scissors") then
 		love.graphics.setColor(255, 255, 0, 150)
 		love.graphics.rectangle("fill", char.x, char.y, char.width, char.height)
+		print(char.charType)
 		--love.graphics.circle("fill", char.x, char.y, char.height/2, 3)
 		--love.graphics.polygon('fill', 100, 100, 200, 100, 150, 200)
 	else

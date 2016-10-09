@@ -194,17 +194,14 @@ function damageCalc(other, char)
 		if (other.charType == "castle") then
 			other.life = other.life - 10
 			char.life = char.life - 10
-			print("castle")
-		else 
+		else
 			-- scissors, stone, paper
-			char.charType = hT
-			other.charType = eT
-			if (ht == "scissors" and et == "paper" or ht == "paper" and et == "rock" or ht == "rock" and et == "scissors") then
+			if (char.charType == "scissors" and other.charType == "paper") or (char.charType == "paper" and other.charType == "rock") or (char.charType == "rock" and other.charType == "scissors") then
 				-- effective
 				print("effective")
 				char.life = char.life - 5
 				other.life = other.life - 20
-			elseif (ht == scissors and et == "rock" or ht == "paper" and et == "scissors" or ht == "scissors" and et == "paper") then
+			elseif (char.charType == scissors and other.charType == "rock" or char.charType == "paper" and other.charType == "scissors" or char.charType == "scissors" and other.charType == "paper") then
 				-- not effective
 				print("not effective")
 				char.life = char.life - 20

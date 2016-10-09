@@ -54,9 +54,9 @@ speedPaper   = 1000
 speedScissor = 1000
 
 lifeCastle   = 2000
-lifeRock     = 100
-lifePaper    = 200
-lifeScissor  = 400
+lifeRock     = 500
+lifePaper    = 500
+lifeScissor  = 500
 
 -- font
 defaultFontSize = 13

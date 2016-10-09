@@ -93,7 +93,6 @@ function counterToVariables(value, laneOrCharTypeArg)
 	local value = value
 	local laneOrCharTypeArg = laneOrCharTypeArg
 	if laneOrCharTypeArg == "lane" then
-		print("lane")
 		if (value == 1) then
 			return firstLaneY
 		elseif (value == 0) then
@@ -102,12 +101,16 @@ function counterToVariables(value, laneOrCharTypeArg)
 			return thirdLaneY
 		end
 	elseif laneOrCharTypeArg == "charType" then
-		if (value == 1) then
+		print("charType")
+		if (value == 0) then
+			print("rock")
 			-- lifeRock speedRock
 			return "rock", lifeRock, speedRock
-		elseif (value == 0) then
+		elseif (value == 1) then
+			print("paper")
 			return "paper", lifePaper, speedPaper
 		elseif (value == -1) then
+			print("scissors")
 			return "scissors", lifeScissor, speedScissor
 		end
 	else return nil
@@ -139,13 +142,13 @@ end
 function addCharWrapper(key, heroOrEnemy, laneOrCharTypeRelevant, upOrDownKeyRelevant, actionRelevant)
 	if upOrDownKeyRelevant == nil then
 		-- it should be an action key
-		-- creation
+		-- char creation
 		if actionRelevant then
 
 			if (heroOrEnemy == "hero") then
 				addChar({x=heroStartX, y=HeroLaneVar, width=heroOrEnemyWidth, height=heroOrEnemyHeight, life=HeroLife, speed=HeroSpeed, party="hero", charType=HeroCharTypeVar})
 			elseif (heroOrEnemy == "enemy") then
-				addChar({x=enemyStartX, y=EnemyLaneVar, width=heroOrEnemyWidth, height=heroOrEnemyHeight, life=EnemyLife, speed=EnemySpeed, party="enemy", charType=enemyCharType})
+				addChar({x=enemyStartX, y=EnemyLaneVar, width=heroOrEnemyWidth, height=heroOrEnemyHeight, life=EnemyLife, speed=EnemySpeed, party="enemy", charType=EnemyCharTypeVar})
 			end
 
 		end
@@ -170,6 +173,7 @@ function addCharWrapper(key, heroOrEnemy, laneOrCharTypeRelevant, upOrDownKeyRel
 				-- sets rock, paper and scissors and their life and speed from the global variables
 				EnemyCharType = countChanger(EnemyCharType, upOrDownKeyRelevant)
 				EnemyCharTypeVar, EnemyLife, EnemySpeed = counterToVariables(EnemyCharType, "charType")
+				--print(EnemyCharTypeVar, EnemyLife, EnemySpeed)
 			end
 		end
 	end
