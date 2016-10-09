@@ -6,11 +6,36 @@ gameStatus = "active"
 heroCharType = "rock"
 enemyCharType = "rock"
 
---  images and sprites
+--  images
 -- map
-bg = love.graphics.newImage("map1.png")
+bg = love.graphics.newImage("assets/img/map1.png")
+-- castle
+castleImg = {}
+for i=0,25 do
+	castleImg[i] = love.graphics.newImage("assets/img/castle/castle"..i..".png")
+end
+castleLifeImg = {}
+castleDeathImg = {}
 
---sprites
+for i=0, #castleImg do
+	if i < 20 then
+		-- all normal castle images
+		castleLifeImg[#castleLifeImg +1] = castleImg[i]
+	else
+		-- death images
+		castleDeathImg[#castleDeathImg +1] = castleImg[i]
+	end
+
+end
+
+function initAnimationTimer(countOfImg, life)
+	section = life / countOfImg
+	return section
+end
+
+-- variables for castles
+heroCastleActive = castleLifeImg[1]
+enemyCastleActive = castleLifeImg[1]
 
 counter = 0
 timeTillDeath = 0
@@ -24,11 +49,15 @@ life = lifeDefault
 
 
 speedCastle  = 0
-speedRock    = 100
-speedPaper   = 100
-speedScissor = 100
+speedRock    = 1000
+speedPaper   = 1000
+speedScissor = 1000
 
 lifeCastle   = 2000
-lifeRock     = 10
-lifePaper    = 20
-lifeScissor  = 400
+lifeRock     = 500
+lifePaper    = 500
+lifeScissor  = 500
+
+-- font
+defaultFontSize = 13
+endStateFont = 25
