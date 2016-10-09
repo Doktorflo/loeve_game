@@ -182,13 +182,42 @@ function updateChar(char, dt)
 	for i=1, cols_len do
 		local other = cols[i].other
 		if (other.party ~= char.party) then
-			-- remove life
-			other.life = other.life - 10
-			char.life = char.life - 10
+			damageCalc(other, char)
 		end
 	end
 end
 
+function damageCalc(other, char)
+	-- remove life
+	if (other.charType ~= char.charType) then
+		-- castle
+		if (other.charType == "castle") then
+			other.life = other.life - 10
+			char.life = char.life - 10
+			print("castle")
+		else 
+			-- scissors, stone, paper
+			char.charType = hT
+			other.charType = eT
+			if (ht == "scissors" and et == "paper" or ht == "paper" and et == "rock" or ht == "rock" and et == "scissors") then
+				-- effective
+				print("effective")
+				char.life = char.life - 5
+				other.life = other.life - 20
+			elseif (ht == scissors and et == "rock" or ht == "paper" and et == "scissors" or ht == "scissors" and et == "paper") then
+				-- not effective
+				print("not effective")
+				char.life = char.life - 20
+				other.life = other.life - 5
+			end
+		end
+
+	else
+		-- same charType, normal
+		other.life = other.life - 8
+		char.life = char.life - 8
+	end
+end
 
 function checkWinState(char)
 	-- check for end of game
